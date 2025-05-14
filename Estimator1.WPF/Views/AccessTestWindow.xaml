@@ -1,0 +1,46 @@
+<Window x:Class="Estimator1.WPF.Views.AccessTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Estimator1.WPF.Views"
+        xmlns:converters="clr-namespace:Estimator1.WPF.Converters"
+        xmlns:viewmodels="clr-namespace:Estimator1.WPF.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewmodels:AccessTestViewModel}"
+        mc:Ignorable="d"
+        Title="Access Level Test" Height="300" Width="400"
+        WindowStartupLocation="CenterScreen">
+    
+    <StackPanel Margin="20,20,20,2">
+        <TextBlock Text="Access Level Test"
+                  FontSize="24"
+                  HorizontalAlignment="Center"
+                  Margin="0,0,0,20"/>
+
+        <TextBlock Text="{Binding CurrentUserInfo}"
+                  FontSize="14"
+                  HorizontalAlignment="Center"
+                  Margin="0,0,0,20"/>
+
+        <Button Content="Test Basic Access"
+                Command="{Binding TestBasicAccessCommand}"
+                Padding="10,5"
+                Margin="0,0,0,10"/>
+
+        <Button Content="Test Supervisor Access"
+                Command="{Binding TestSupervisorAccessCommand}"
+                Padding="10,5"
+                Margin="0,0,0,10"/>
+
+        <Button Content="Test Administrator Access"
+                Command="{Binding TestAdminAccessCommand}"
+                Padding="10,5"
+                Margin="0,0,0,20"/>
+
+        <TextBlock Text="{Binding AccessTestResult}"
+                  FontSize="14"
+                  TextWrapping="Wrap"
+                  HorizontalAlignment="Center"
+                  Foreground="{Binding AccessTestResult, Converter={converters:AccessResultColorConverter}}"/>
+    </StackPanel>
+</Window>

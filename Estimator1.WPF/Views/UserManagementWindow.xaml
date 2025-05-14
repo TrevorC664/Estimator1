@@ -1,0 +1,96 @@
+<Window x:Class="Estimator1.WPF.Views.UserManagementWindow"
+        x:ClassModifier="public"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Estimator1.WPF.Views"
+        xmlns:vm="clr-namespace:Estimator1.WPF.ViewModels"
+        xmlns:enums="clr-namespace:Estimator1.Core.Enums;assembly=Estimator1.Core"
+        mc:Ignorable="d"
+        Title="User Management" Height="600" Width="900"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left side - User List -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="User Management" 
+                     FontSize="24" 
+                     Margin="0,0,0,10"/>
+
+            <DataGrid Grid.Row="1" 
+                      ItemsSource="{Binding Users}"
+                      SelectedItem="{Binding SelectedUser}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      SelectionUnit="FullRow"
+                      GridLinesVisibility="Horizontal"
+                      BorderThickness="1"
+                      BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
+                      Background="White"
+                      RowBackground="White"
+                      AlternatingRowBackground="#F5F5F5"
+                      Margin="0,0,10,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Username" 
+                                      Binding="{Binding Username}"
+                                      Width="*"/>
+                    <DataGridTextColumn Header="Access Level" 
+                                      Binding="{Binding AccessLevel}"
+                                      Width="Auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!-- Right side - User Form -->
+        <StackPanel Grid.Column="1" Margin="10,0,0,0">
+            <TextBlock Text="User Details" 
+                       FontSize="20" 
+                       Margin="0,0,0,20"/>
+
+            <TextBlock Text="Username" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="0,0,0,10"/>
+
+            <TextBlock Text="Password" Margin="0,0,0,5"/>
+            <PasswordBox x:Name="PasswordBox" 
+                         Margin="0,0,0,10"/>
+
+            <TextBlock Text="Access Level" Margin="0,0,0,5"/>
+            <ComboBox ItemsSource="{Binding AccessLevels}"
+                      SelectedItem="{Binding SelectedAccessLevel}"
+                      Margin="0,0,0,20"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <Button Content="Add User" 
+                        Command="{Binding AddUserCommand}"
+                        Width="90" 
+                        Margin="0,0,10,0"/>
+                <Button Content="Update" 
+                        Command="{Binding UpdateUserCommand}"
+                        Width="90" 
+                        Margin="0,0,10,0"/>
+                <Button Content="Delete" 
+                        Command="{Binding DeleteUserCommand}"
+                        Width="90"/>
+            </StackPanel>
+
+            <Button Content="Clear Form" 
+                    Command="{Binding ClearFormCommand}"
+                    Width="90" 
+                    HorizontalAlignment="Left"/>
+        </StackPanel>
+    </Grid>
+</Window>
